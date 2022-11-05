@@ -1,0 +1,15 @@
+FROM registry.ci.openshift.org/ocp/builder:rhel-8-golang-1.19-openshift-4.12 AS builder
+WORKDIR /go/src/github.com/openshift/cluster-etcd-operator
+COPY . .
+ENV GO_PACKAGE github.com/openshift/cluster-etcd-operator
+RUN echo "replace github.com/openshift/api => github.com/openshift/api master" >> go.mod && go mod verify && go mod tidy && go mod vendor
+RUN make build --warn-undefined-variables
+
+FROM registry.ci.openshift.org/ocp/4.12:base
+COPY --from=builder /go/src/github.com/openshift/cluster-etcd-operator/bindata/bootkube/bootstrap-manifests /usr/share/bootkube/manifests/bootstrap-manifests/
+COPY --from=builder /go/src/github.com/openshift/cluster-etcd-operator/bindata/bootkube/manifests /usr/share/bootkube/manifests/manifests/
+COPY --from=builder /go/src/github.com/openshift/cluster-etcd-operator/cluster-etcd-operator /usr/bin/
+COPY manifests/ /manifests
+COPY vendor/github.com/openshift/api/operator/v1/0000_12_etcd-operator_01_config.crd.yaml /manifests
+
+LABEL io.openshift.release.operator true

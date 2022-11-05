@@ -9,12 +9,18 @@ spec:
       uri: 'https://github.com/openshift/cluster-etcd-operator'
       ref: release-4.12
     contextDir: .
-    images: []
+    images:
+      - from:
+          kind: ImageStreamTag
+          name: 'release:forked-dockerfiles'
+        paths:
+          - sourcePath: /code/cluster-etcd-operator/Dockerfile.centos9
+            destinationDir: "."
   strategy:
     type: Docker
     dockerStrategy:
       imageOptimizationPolicy: SkipLayers
-      dockerfilePath: Dockerfile.rhel7
+      dockerfilePath: Dockerfile.centos9
       from:
         kind: "ImageStreamTag"
         name: "release:base"
