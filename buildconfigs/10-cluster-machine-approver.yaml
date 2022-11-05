@@ -9,7 +9,13 @@ spec:
       uri: 'https://github.com/openshift/cluster-machine-approver'
       ref: release-4.12
     contextDir: .
-    images: []
+    images:
+      - from:
+          kind: ImageStreamTag
+          name: 'release:forked-dockerfiles'
+        paths:
+          - sourcePath: /code/cluster-machine-approver/Dockerfile.centos9
+            destinationDir: "."
   strategy:
     type: Docker
     dockerStrategy:
