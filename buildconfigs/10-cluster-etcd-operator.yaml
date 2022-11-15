@@ -6,8 +6,8 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://github.com/openshift/cluster-etcd-operator'
-      ref: release-4.12
+      uri: 'https://github.com/vrutkovs/cluster-etcd-operator'
+      ref: 4.12-cut-requests
     contextDir: .
     images: []
   strategy:

@@ -10,3 +10,4 @@ resources:
 - build-from-scratch.yaml
 - full-rebuild.yaml
 - mco-layered.yaml
+- slim-okd.yaml

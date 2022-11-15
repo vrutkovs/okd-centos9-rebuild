@@ -6,8 +6,8 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://github.com/openshift/cluster-network-operator'
-      ref: release-4.12
+      uri: 'https://github.com/vrutkovs/cluster-network-operator'
+      ref: 4.12-cut-requests
     contextDir: .
     images: []
   strategy:
