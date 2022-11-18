@@ -6,8 +6,8 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://github.com/openshift/cluster-kube-apiserver-operator'
-      ref: release-4.12
+      uri: 'https://github.com/vrutkovs/cluster-kube-apiserver-operator'
+      ref: 4.12-watch-caches
     contextDir: .
     images: []
   strategy:

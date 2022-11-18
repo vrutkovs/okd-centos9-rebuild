@@ -85,12 +85,23 @@ spec:
         - name: SCRIPT
           value: |
             oc start-build cluster-network-operator -w
+    - name: cluster-kube-apiserver-operator
+      runAfter:
+      - prepare-build-images
+      taskRef:
+        name: openshift-client
+        kind: ClusterTask
+      params:
+        - name: SCRIPT
+          value: |
+            oc start-build cluster-kube-apiserver-operator -w
     - name: new-release
       runAfter:
       - installer
       - cluster-monitoring-operator
       - cluster-network-operator
       - cluster-etcd-operator
+      - cluster-kube-apiserver-operator
       taskRef:
         name: new-release
       timeout: "2h0m0s"
